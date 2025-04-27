@@ -50,13 +50,22 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack>
-        <Stack.Screen
-          name='index'
+        {/* <Stack.Screen
+          name="index"
           options={{
-            title: 'Starter Base',
+            title: "Starter Base",
             headerRight: () => <ThemeToggle />,
+            headerShown: false,
+          }}
+        /> */}
+        <Stack.Screen
+          name="(auth)"
+          options={{
+            title: "Login",
+            headerRight: () => <ThemeToggle />,
+            headerShown: false,
           }}
         />
       </Stack>
