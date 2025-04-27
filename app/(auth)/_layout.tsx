@@ -17,7 +17,7 @@ const _Layout = () => {
 
   useEffect(() => {
     if (segments.at(-1) !== "(auth)") {
-      bottomHeight.value = withTiming(1.5, { duration: 500 });
+      bottomHeight.value = withTiming(2.5, { duration: 500 });
     } else {
       bottomHeight.value = withTiming(2 / 4, { duration: 500 });
     }
@@ -44,18 +44,20 @@ const _Layout = () => {
         <View className="flex-1 bg-black/40 absolute w-full h-full" />
 
         <View className="flex-1 pt-12 flex flex-col gap-3">
-                  {segments.at(-1) === "(auth)" && <View className="w-full items-end px-3">
-                      <Button variant="ghost">
-                          <Text className="text-zinc-400">Skip</Text>
-                      </Button>
-                  </View>}
+          {segments.at(-1) === "(auth)" && (
+            <View className="w-full items-end px-3">
+              <Button variant="ghost">
+                <Text className="text-zinc-400">Skip</Text>
+              </Button>
+            </View>
+          )}
           <Text className="text-primary font-bold text-center w-full text-5xl">
             Busify
           </Text>
         </View>
 
         <Animated.View
-          className="bg-zinc-900 rounded-3xl overflow-hidden"
+          className="bg-zinc-900 rounded-t-3xl overflow-hidden"
           style={animatedStyle}
         >
           <Stack
