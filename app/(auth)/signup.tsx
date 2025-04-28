@@ -184,7 +184,7 @@ const Signup = () => {
             onDismiss={() => setSnackbarVisible(false)}
             duration={2000}
             style={{
-              backgroundColor: "#333",
+              backgroundColor: "hsl(262.1 83.3% 57.8%)",
               borderRadius: 10,
               marginBottom: 40,
             }}

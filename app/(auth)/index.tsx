@@ -95,9 +95,9 @@ const AuthScreen = () => {
         <Button
           onPress={() => router.push("/(auth)/login")}
           className="flex-1 rounded-full bg-white"
-          variant="secondary"
+          variant="outline"
         >
-          <Text>Login</Text>
+          <Text className="text-primary">Login</Text>
         </Button>
         <Button
           onPress={() => router.push("/(auth)/signup")}
