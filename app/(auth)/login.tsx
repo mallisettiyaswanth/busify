@@ -57,10 +57,10 @@ const Login = () => {
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        <View className="flex-1 bg-zinc-900 py-5">
+        <View className="flex-1 bg-[#EEF7FF] py-5">
           <View className="flex items-center text-white p-3 py-5 gap-5">
-            <Text className="text-white text-3xl">Verify your details</Text>
-            <Text className="text-zinc-400 px-20 text-center leading-relaxed">
+            <Text className="text-black text-3xl">Verify your details</Text>
+            <Text className="text-black/50 px-20 text-center leading-relaxed">
               Please review and confirm your verify information for accuracy
             </Text>
           </View>
@@ -69,15 +69,15 @@ const Login = () => {
             <View className="flex gap-4 flex-col">
               {/* Email */}
               <View className="flex flex-col gap-2">
-                <Label className="text-white px-3">
-                  <Text className="text-white/80 text-lg">Email</Text>
+                <Label className="px-3">
+                  <Text className="text-black/60 text-lg">Email</Text>
                 </Label>
                 <Controller
                   control={form.control}
                   name="email"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <Input
-                      className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
+                      className="w-full bg-white border border-zinc-200 rounded-full border-none px-5 text-white shadow-sm"
                       placeholder="passenger@bus.com"
                       onBlur={onBlur}
                       onChangeText={onChange}
@@ -90,7 +90,7 @@ const Login = () => {
               {/* Password */}
               <View className="flex flex-col gap-2">
                 <Label className="text-white px-3">
-                  <Text className="text-white/80 text-lg">Password</Text>
+                  <Text className="text-black/60 text-lg">Password</Text>
                 </Label>
                 <Controller
                   control={form.control}
@@ -101,14 +101,12 @@ const Login = () => {
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
+                      className="w-full bg-white border border-zinc-200 rounded-full border-none px-5 text-white shadow-sm"
                       placeholder="••••••"
                     />
                   )}
                 />
               </View>
-
-              {/* Login Button */}
               <View className="w-full mt-3">
                 <Button
                   className="rounded-full"
@@ -121,17 +119,24 @@ const Login = () => {
 
             {/* Divider */}
             <View className="flex gap-2 flex-row items-center my-7">
-              <Separator className="flex-1 bg-white/40" />
-              <Text className="text-white/40 flex-1 text-center">
+              <Separator className="flex-1 bg-black/40" />
+              <Text className="text-black/40 flex-1 text-center">
                 Sign in with Google
               </Text>
-              <Separator className="flex-1 bg-white/40" />
+              <Separator className="flex-1 bg-black/40" />
             </View>
 
             {/* Google Button */}
-            <Button className="rounded-full bg-white/10 flex gap-2 flex-row items-center text-white">
-              <AntDesign name="google" size={20} color="white" />
-              <Text className="text-lg text-white font-bold flex-1 text-center">
+            <Button
+              className="rounded-full bg-white flex gap-2 flex-row items-center text-white"
+              variant="outline"
+            >
+              <AntDesign
+                name="google"
+                size={20}
+                color="hsl(262.1 83.3% 57.8%)"
+              />
+              <Text className="text-lg text-primary font-bold flex-1 text-center">
                 Google
               </Text>
             </Button>

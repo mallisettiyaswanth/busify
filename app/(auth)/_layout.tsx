@@ -15,8 +15,10 @@ const _Layout = () => {
   const bottomHeight = useSharedValue(0);
 
   useEffect(() => {
-    if (segments.at(-1) !== "(auth)") {
+    if (segments.at(-1) === "login") {
       bottomHeight.value = withTiming(2.5, { duration: 500 });
+    } else if (segments.at(-1) === "signup") {
+      bottomHeight.value = withTiming(3.5, { duration: 500 });
     } else {
       bottomHeight.value = withTiming(2 / 4, { duration: 500 });
     }
@@ -56,7 +58,7 @@ const _Layout = () => {
         </View>
 
         <Animated.View
-          className="bg-zinc-900 rounded-t-3xl overflow-hidden"
+          className="bg-white rounded-t-3xl overflow-hidden"
           style={animatedStyle}
         >
           <Stack

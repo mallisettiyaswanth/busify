@@ -55,7 +55,7 @@ const AuthScreen = () => {
   ).current;
 
   return (
-    <View className="flex-1 bg-zinc-900 py-5 gap-7">
+    <View className="flex-1 bg-[#EEF7FF] py-5 gap-7">
       <View className="flex flex-col">
         <Animated.FlatList
           ref={animatedRef}
@@ -72,10 +72,10 @@ const AuthScreen = () => {
                 height: Dimensions.get("window").width * 0.3,
               }}
             >
-              <Text className="text-3xl font-bold text-white text-center">
+              <Text className="text-3xl font-bold text-black text-center">
                 {item.title}
               </Text>
-              <Text className="text-zinc-400 text-base font-light text-center">
+              <Text className="text-black/75 text-base font-light text-center">
                 {item.description}
               </Text>
             </View>
@@ -94,7 +94,7 @@ const AuthScreen = () => {
       <View className="flex-row gap-5 mt-8 px-5">
         <Button
           onPress={() => router.push("/(auth)/login")}
-          className="flex-1 rounded-full"
+          className="flex-1 rounded-full bg-white"
           variant="secondary"
         >
           <Text>Login</Text>
