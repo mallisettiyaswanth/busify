@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import { ImageBackground, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,

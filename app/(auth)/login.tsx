@@ -1,79 +1,172 @@
-import { View, Text } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import React, { useState } from "react";
 import { Input } from "~/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { Label } from "@rn-primitives/select";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { Snackbar } from "react-native-paper";
 
 const Login = () => {
   const form = useForm();
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const onSubmit = (data: any) => {
+    const { email, password } = data;
+    const emailRegex = /\S+@\S+\.\S+/;
+
+    if (!email) {
+      setSnackbarMessage("Email is required");
+      setSnackbarVisible(true);
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setSnackbarMessage("Please enter a valid email");
+      setSnackbarVisible(true);
+      return;
+    }
+    if (!password) {
+      setSnackbarMessage("Password is required");
+      setSnackbarVisible(true);
+      return;
+    }
+    if (password.length < 6) {
+      setSnackbarMessage("Password must be at least 6 characters");
+      setSnackbarVisible(true);
+      return;
+    }
+
+    console.log("Login successful", data);
+  };
 
   return (
-    <View className="flex-1 bg-zinc-900 py-5">
-      <View className="flex items-center text-white p-3 py-5 gap-5">
-        <Text className="text-white text-3xl">Verify your details</Text>
-        <Text className="text-zinc-400 px-20 text-center leading-relaxed">
-          Please review and confirm your verify information for accuracy
-        </Text>
-      </View>
-      <View className="flex flex-col gap-3 px-5">
-        <View className="flex gap-4 flex-col">
-          <View className="flex flex-col gap-2">
-            <Label className="text-white px-3">
-              <Text className="text-white/80 text-lg">Email</Text>
-            </Label>
-            <Controller
-              control={form.control}
-              name="email"
-              render={({ field: { onChange, value, onBlur } }) => (
-                <Input
-                  className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
-                  placeholder="passenger@bus.com"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={60} // adjust if header exists
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View className="flex-1 bg-zinc-900 py-5">
+          <View className="flex items-center text-white p-3 py-5 gap-5">
+            <Text className="text-white text-3xl">Verify your details</Text>
+            <Text className="text-zinc-400 px-20 text-center leading-relaxed">
+              Please review and confirm your verify information for accuracy
+            </Text>
           </View>
-          <View className="flex flex-col gap-2">
-            <Label className="text-white px-3">
-              <Text className="text-white/80 text-lg">Password</Text>
-            </Label>
-            <Controller
-              control={form.control}
-              name="password"
-              render={({ field: { onChange, value, onBlur } }) => (
-                <Input
-                  secureTextEntry={true}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
-                  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+
+          <View className="flex flex-col gap-3 px-5">
+            <View className="flex gap-4 flex-col">
+              {/* Email */}
+              <View className="flex flex-col gap-2">
+                <Label className="text-white px-3">
+                  <Text className="text-white/80 text-lg">Email</Text>
+                </Label>
+                <Controller
+                  control={form.control}
+                  name="email"
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <Input
+                      className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
+                      placeholder="passenger@bus.com"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  )}
                 />
-              )}
-            />
-          </View>
-          <View className="w-full mt-3">
-            <Button className="rounded-full">
-              <Text className="text-lg text-white font-bold">Login</Text>
+              </View>
+
+              {/* Password */}
+              <View className="flex flex-col gap-2">
+                <Label className="text-white px-3">
+                  <Text className="text-white/80 text-lg">Password</Text>
+                </Label>
+                <Controller
+                  control={form.control}
+                  name="password"
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <Input
+                      secureTextEntry
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      className="w-full bg-zinc-700 rounded-full border-none px-5 text-white shadow-sm"
+                      placeholder="••••••"
+                    />
+                  )}
+                />
+              </View>
+
+              {/* Login Button */}
+              <View className="w-full mt-3">
+                <Button
+                  className="rounded-full"
+                  onPress={form.handleSubmit(onSubmit)}
+                >
+                  <Text className="text-lg text-white font-bold">Login</Text>
+                </Button>
+              </View>
+            </View>
+
+            {/* Divider */}
+            <View className="flex gap-2 flex-row items-center my-7">
+              <Separator className="flex-1 bg-white/40" />
+              <Text className="text-white/40 flex-1 text-center">
+                Sign in with Google
+              </Text>
+              <Separator className="flex-1 bg-white/40" />
+            </View>
+
+            {/* Google Button */}
+            <Button className="rounded-full bg-white/10 flex gap-2 flex-row items-center text-white">
+              <AntDesign name="google" size={20} color="white" />
+              <Text className="text-lg text-white font-bold flex-1 text-center">
+                Google
+              </Text>
             </Button>
           </View>
+
+          {/* Terms & Privacy */}
+          <View className="flex flex-row items-center justify-center px-24 text-center mt-5">
+            <Text className="text-white/40 text-center mt-5 leading-relaxed text-xs">
+              By signing in, you agree to our{" "}
+              <Text className="text-primary">Terms of Service</Text> and{" "}
+              <Text className="text-primary">Privacy Policy</Text>
+            </Text>
+          </View>
+
+          {/* Snackbar */}
+          <Snackbar
+            visible={snackbarVisible}
+            onDismiss={() => setSnackbarVisible(false)}
+            duration={2000}
+            style={{
+              backgroundColor: "#333",
+              borderRadius: 10,
+              marginBottom: 40,
+            }}
+            action={{
+              label: "Dismiss",
+              onPress: () => setSnackbarVisible(false),
+              textColor: "white",
+            }}
+          >
+            <Text className="text-white text-lg">{snackbarMessage}</Text>
+          </Snackbar>
         </View>
-        <View className="flex gap-2 flex-row items-center my-10">
-          <Separator className="flex-1  bg-white/40" />
-          <Text className="text-white/40 flex-1">Sign in with Google</Text>
-          <Separator className="flex-1  bg-white/40" />
-        </View>
-        <View>
-          <Button className="rounded-full bg-white/10">
-            <Text className="text-lg text-white font-bold">Google</Text>
-          </Button>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
